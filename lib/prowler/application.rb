@@ -161,13 +161,6 @@ module Prowler
 
       def perform_request(url, request, klass) #:nodoc:
         http = Net::HTTP.new(url.host, url.port)
-        http.use_ssl = true
-        if verify_certificate?
-          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-          http.ca_file = root_certificates
-        else
-          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        end
         http.read_timeout = Prowler.read_timeout
         http.open_timeout = Prowler.open_timeout
         http.start do
